@@ -1,0 +1,571 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EA PHOTOGRAPH | Photography</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0b0b0b;
+    color: white;
+}
+
+/* ================= NAVBAR ================= */
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(12px);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #d65f69;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #d6a85f;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background:
+        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.75)),
+        url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2000&q=90");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content {
+    padding: 20px;
+}
+
+.hero small {
+    color: #d6a85f;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(55px, 9vw, 110px);
+    font-weight: normal;
+    line-height: 1;
+    margin: 20px 0;
+}
+
+.hero p {
+    color: #ddd;
+    font-size: 17px;
+    margin-bottom: 30px;
+}
+
+.button {
+    display: inline-block;
+    padding: 13px 25px;
+    border: 1px solid white;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: white;
+    color: black;
+}
+
+/* ================= SECTION ================= */
+
+section {
+    padding: 100px 7%;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.heading small {
+    color: #d6a85f;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.heading h2 {
+    font-family: Georgia, serif;
+    font-size: 45px;
+    font-weight: normal;
+    margin-top: 10px;
+}
+
+/* ================= GALLERY ================= */
+
+.gallery {
+    max-width: 1200px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.photo img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.photo:hover img {
+    transform: scale(1.08);
+}
+
+.photo::after {
+    content: "VIEW PHOTO";    
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0,0,0,0.35);
+    color: rgba(255, 253, 253, 0.781);
+    letter-spacing: 2px;
+
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.photo:hover::after {
+    opacity: 1;
+}
+
+/* Different image sizes */
+
+.photo:nth-child(2) img,
+.photo:nth-child(5) img {
+    height: 500px;
+}
+
+/* ================= ABOUT ================= */
+
+.about {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+}
+
+.about p {
+    color: #aaa;
+    line-height: 1.9;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+/* ================= INSTAGRAM ================= */
+
+.instagram {
+    text-align: center;
+    background: #111;
+}
+
+.instagram h2 {
+    font-family: Georgia, serif;
+    font-size: 42px;
+    font-weight: normal;
+}
+
+.instagram p {
+    color: #999;
+    margin: 15px 0 30px;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-size: 13px;
+}
+
+/* ================= LIGHTBOX ================= */
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999;
+    padding: 20px;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.close {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width: 800px) {
+
+    nav {
+        padding: 18px 5%;
+    }
+
+    nav div:last-child {
+        display: none;
+    }
+
+    section {
+        padding: 75px 5%;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .photo img,
+    .photo:nth-child(2) img,
+    .photo:nth-child(5) img {
+        height: 300px;
+    }
+
+    .heading h2 {
+        font-size: 36px;
+    }
+}
+
+@media(max-width: 500px) {
+
+    .hero h1 {
+        font-size: 58px;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .photo img,
+    .photo:nth-child(2) img,
+    .photo:nth-child(5) img {
+        height: 250px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav>
+
+    <div class="logo">
+        EA<span>PHOTOGRAPH</span>
+    </div>
+
+    <div>
+        <a href="#home">Home</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About</a>
+        <a href="#instagram">Instagram</a>
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <small>Ea Photography</small>
+
+        <h1>
+            Framing Moments<br>
+            Not Pictures
+        </h1>
+
+        <p>
+            Capturing moments, places and stories through my lens.
+        </p>
+
+        <a href="#gallery" class="button">
+            Explore My Work
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= GALLERY ================= -->
+
+<section id="gallery">
+
+    <div class="heading">
+
+        <small></small>
+
+        <h2>GALLERY</h2>
+
+    </div>
+
+
+    <div class="gallery">
+
+        <!-- CHANGE THESE IMAGE LINKS -->
+        <div class="photo">
+            <img src="IMG_1057.JPG.jpeg">
+        </div>
+    
+
+<script async src="IMG_1057.JPG.jpeg"></script>
+        <div class="photo">
+            <img src="C:\Users\aaron\OneDrive\Pictures\EA\IMG_9103.JPG.jpeg">
+        </div>
+
+        <div class="photo">
+            <img src="C:\Users\aaron\OneDrive\Pictures\EA\IMG_6797.JPG.jpeg">
+        </div>
+
+        <div class="photo">
+            <img src="C:\Users\aaron\OneDrive\Pictures\EA\IMG_1057.JPG.jpeg">
+        </div>
+
+        <div class="photo">
+            <img src="C:\Users\aaron\OneDrive\Pictures\EA\IMG_1390.JPG.jpeg">
+        </div>
+
+        <div class="photo">
+            <img src="C:\Users\aaron\OneDrive\Pictures\EA\IMG_1394.JPG.jpeg">
+        </div>
+
+        <div class="photo">
+            <img src="C:\Users\aaron\OneDrive\Pictures\EA\IMG_1392.JPG.jpeg">
+        </div>
+
+        <div class="photo">
+            <img src="C:\Users\aaron\OneDrive\Pictures\EA\WhatsApp Image 2026-10-07 at 5.44.17 PM.jpeg">
+        </div>
+
+        <div class="photo">
+            <img src="C:\Users\aaron\OneDrive\Pictures\EA\IMG_1393.JPG.jpeg">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section id="about">
+
+    <div class="about">
+
+        <div class="heading">
+
+            <small>About Me</small>
+
+            <h2>Behind the Lens</h2>
+
+        </div>
+
+        <p>
+            Photography is my way of seeing the world differently.
+            I enjoy capturing nature, streets, people and everyday
+            moments that tell a story.
+        </p>
+
+        <p>
+            This website is a collection of some of my favourite
+            photographs. For my latest work, follow me on Instagram.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= INSTAGRAM ================= -->
+
+<section class="instagram" id="instagram">
+
+    <div class="heading">
+
+        <small>Follow My Journey</small>
+
+        <h2>More on Instagram</h2>
+
+        <p>
+            New photographs and behind-the-scenes moments.
+        </p>
+
+        <!-- CHANGE YOUR INSTAGRAM USERNAME -->
+
+        <a
+            href="https://www.instagram.com/eaphotograph1?stkn=MXkxOWlsemNtc2Rndg=="
+            target="_blank"
+            class="button">
+
+            @ EA PHOTOGRAPH↗
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    © 2026 EA PHOTOGRAPH Photography
+
+</footer>
+
+
+<!-- ================= LIGHTBOX ================= -->
+
+<div class="lightbox" id="lightbox">
+
+    <div class="close" onclick="closeImage()">×</div>
+
+    <img id="lightboxImage">
+
+</div>
+
+
+<script>
+
+/* ================= PHOTO VIEWER ================= */
+
+const photos = document.querySelectorAll(".photo img");
+
+const lightbox = document.getElementById("lightbox");
+
+const lightboxImage = document.getElementById("lightboxImage");
+
+
+photos.forEach(photo => {
+
+    photo.addEventListener("click", () => {
+
+        lightbox.classList.add("active");
+
+        lightboxImage.src = photo.src;
+
+    });
+
+});
+
+
+function closeImage() {
+
+    lightbox.classList.remove("active");
+
+}
+
+
+lightbox.addEventListener("click", function(e) {
+
+    if (e.target === lightbox) {
+
+        closeImage();
+
+    }
+
+});
+
+
+document.addEventListener("keydown", function(e) {
+
+    if (e.key === "Escape") {
+
+        closeImage();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+```
